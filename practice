@@ -1,0 +1,119 @@
+//get an doctors by hospital code:
+app.get('/doctor/:code', (req, res)=>{
+    mysqlConnection.query(
+        "SELECT dd.id as doctor_id, dd.firstname , dd.lastname, dd.emailid,dd.phone_no, uc.notification_enabled, uc.is_thirdparty_doctor, dd.speciality  from iMedrix_administration.doctor_details dd, iMedrix_administration.hospital_doctor hd, iMedrix_administration.hospital_details as h,  iMedrix_administration.users_login ul,iMedrix_administration.users_config as uc where ul.email_id = dd.emailid and uc.user_id = ul.id and dd.id=hd.doctor_id and hd.hospital_code = h.id  and h.hospital_code= ? group by dd.id",[req.params.code],(err, rows, fields)=>{
+            if(!err)
+            res.send(rows);
+            else
+            console.log(err);
+        }
+    )
+});
+
+        if(!err){
+                        const a=[];
+                        a.push(rows)
+                        a.push(rows_d)
+                        res.send(a)
+insert technician detail:
+{
+	"name":"abcd",
+	"emailid":"shiva@imedrix.com",
+	"mobile":"12345678",
+	"cityname":"bangalore",
+	"city_classification":"",
+	"qualidication":"",
+	"speciality":"",
+	"role":"",
+	"region":""
+}
+
+insert technician user login:
+//user_type codela kodukanum
+{
+	"email_id":"shiva@imedrix.com",
+	"user_name":"12345678",
+	"password":"bangalore"
+}
+
+insert  technician user config:
+{
+	"cloud_enabled":"0",
+    "ecg_type" :"6",
+    "log_id" :"1" ,
+    "sample_freequency" :"122",
+    "loglevel" : "0",
+    "sync" : "0",
+    "session_time" : "250",              
+    "thermal_printer" : "0",              
+    "user_usage_type" : "1",                    
+    "spot_moniter" :"0",
+    "name_enabled" : "0",
+    "age_enabled" : "0",
+    "mobile_enabled" : "0",
+    "QR_code_enabled" : "0",
+    "mode" : "0",
+    "is_pdf_sync" : "0",
+    "country_code"  : "",
+    "protPDF" : "0",
+    "showPDF" : "1",
+    "showSympt" : "1",
+    "canRegister" :"0",                         
+    "canEditRegister" : "1",
+    "canAddVisit" : "0",                         
+    "vital" : "0",
+    "hisSymp" : "1",
+    "lab" : "0",
+    "med" : "1",
+    "addeff" :"0",
+    "globalimpress" : "0",
+    "ecgTool" : "0",
+    "otherReport" : "0",
+    "jssRehab" : "0",
+    "signature" : "0",
+    "exacta" : "0",
+    "sunuser" :"1"
+}
+
+// insert doctor details:
+{
+	"doctor_name" : "hari",
+    "lastname" : "prasath",
+    "doctor_email" :"prasath@imedrix.com",
+    "speciality" :"",
+    "doctor_phone" :"787888889",
+    "view" : "0",
+    "comment" : "0",
+    "forward" :"0",
+    "closure" :"0" 
+}
+
+//inserted doctor user login:
+//user type and lst_password1,2,3 values are given in code:
+{
+	"email_id":"shiva@imedrix.com",
+	"user_name":"12345678",
+	"password":"bangalore"
+}
+
+//insert doctor userconfig:
+{
+    "notification_enabled" :"0",   
+    "log_id" : "01",
+    "is_thirdparty_doctor" : "0",
+    "canRegister" :"0",                         
+    "canEditRegister" : "1",
+    "canAddVisit" : "0",                         
+    "vital" : "0",
+    "hisSymp" : "1",
+    "lab" : "0",
+    "med" : "1",
+    "addeff" :"0",
+    "globalimpress" : "0",
+    "ecgTool" : "0",
+    "otherReport" : "0",
+    "jssRehab" : "0",
+    "signature" : "0",
+    "exacta" : "0",
+    "sunuser" :"1"
+}
