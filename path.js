@@ -5,23 +5,20 @@ app.post('/nagaprasath', (req,res)=>{
         let json = req.body;
     
         let get_hosp = "SELECT * FROM iMedrix_administration.hospital_details where hospital_code = '" + json['hospital_code'] + "'";
+        let h_id;
         mysqlConnection.connect(function(err) {
-            var sql = "SELECT id FROM iMedrix_administration.hospital_details where hospital_code = '"+hospital_code+"' ";
-            console.log(sql);
-            mysqlConnection.query(sql, function (err, rowsb, fields) {
+            mysqlConnection.query(get_hosp, function (err, row_hosp, fields) {
                 if (err) throw err;
-                console.log(rowsb[0]); 
-                h_id = rowsb[0].id;
-                console.log(h_id);
-                res.send(rowsb);
-    
+                // console.log(row_hosp[0]);
+                h_id = row_hosp[0].id;
+                // console.log(h_id);
             })
         });
-        $exe = mysqli_query($conn, $get_hosp);
-        $row_hosp = mysqli_fetch_assoc($exe);
-        $h_id = $row_hosp['id'];
+        // $exe = mysqli_query($conn, $get_hosp);
+        // $row_hosp = mysqli_fetch_assoc($exe);
+        // $h_id = $row_hosp['id'];
     
-        if ($json['type'] == 'operator') {
+        if (json['type'] == 'operator') {
     
             $check = "SELECT td.id as tech_id, ul.id as log_id FROM iMedrix_administration.users_login as ul,iMedrix_administration.technicians_details as td  where td.emailid = ul.email_id and (td.emailid = '" . $json['emailid'] . "' or ul.user_name = '".$json['username']."') and ul.user_type = 'TC'";
             $check_res = mysqli_query($conn, $check);
