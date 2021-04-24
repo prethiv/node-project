@@ -90,7 +90,7 @@ app.post("/nagaprasath", async (req, res) => {
       //     });
       //   });
       // mysqli_query($conn, $check);
-      if (check_res.length == 0) {
+      if (check_res.length != 0) {
         saltRounds = 10;
         let password = json["password"];
 
