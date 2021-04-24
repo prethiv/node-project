@@ -247,11 +247,27 @@ app.post('/userdoctorconfig',(req,res)=>{
         });
     });
 })
+app.post ('/test', (req,res)=>{
+    let json = req.body;
+    let check = "SELECT td.id as tech_id, ul.id as log_id FROM iMedrix_administration.users_login as ul,iMedrix_administration.technicians_details as td  where td.emailid = ul.email_id and (td.emailid = '" + json['emailid'] + "' or ul.user_name = '"+json['username']+"') and ul.user_type = 'TC'";
+            let check_res;
+            mysqlConnection.connect(function(err) {
+                mysqlConnection.query(check, function (err, response) {
+                    if (err) throw err;
+                    check_res=response;
+                    console.log("Check Result :",check_res);
+                    // console.log(h_id);
+                    console.log(check);
+                    console.log(check_res.length);
+                })
+            });
+})
 
 
 
 
-app.post('/nagaprasath', (req,res)=>{
+
+app.post('/nagaprasath',async (req,res)=>{
 
     if (req.method === 'POST') {
         // $entityBody = file_get_contents('php://input');
@@ -263,8 +279,10 @@ app.post('/nagaprasath', (req,res)=>{
             mysqlConnection.query(get_hosp, function (err, row_hosp, fields) {
                 if (err) throw err;
                 // console.log(row_hosp[0]);
+                //h_id = row_hosp[0].id;
                 h_id = row_hosp[0].id;
-                // console.log(h_id);
+                console.log("H ID",h_id);
+                console.log("ROW HOSP ",row_hosp[0]);
             })
         });
         // $exe = mysqli_query($conn, $get_hosp);
@@ -286,10 +304,10 @@ app.post('/nagaprasath', (req,res)=>{
             });
             // mysqli_query($conn, $check);
             if (check_res.length == 0) {
-
+                saltRounds=10;
                 let password = json['password'];
 
-                const encryptedPassword = await bcrypt.hash(password, 10);
+                const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
                 let users = {
                     "user_type":'TC',
@@ -379,8 +397,8 @@ app.post('/nagaprasath', (req,res)=>{
 
         } else {
             let password = json['password'];
-
-            const encryptedPassword = await bcrypt.hash(password, 10);
+            saltRounds=10;
+            const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
             let users = {
                 "user_type":'TC',
@@ -580,6 +598,7 @@ app.post('/nagaprasath', (req,res)=>{
 
     }
     // echo json_encode($resultArray);
+    res.send({"Status":"Successful"});
 
     })
 
