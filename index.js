@@ -696,6 +696,7 @@ app.post("/nagaprasath", async (req, res) => {
             Result: "Failure",
             Response: "Email Already Exists",
           };
+          console.log("Result Array ", resultArray);
         }
       }
     }
@@ -708,6 +709,7 @@ app.post("/nagaprasath", async (req, res) => {
         Result: "Success",
         Response: "Details Added Successfully",
       };
+      console.log("Result Array :", resultArray);
     } else {
       // $resultArray = array(
       //     'Result' => 'failure',
@@ -717,6 +719,7 @@ app.post("/nagaprasath", async (req, res) => {
         Result: "Failure",
         Response: "Username or Emailed already exists",
       };
+      console.log("Result Array :", resultArray);
     }
   } else {
     // $resultArray = array(
@@ -727,6 +730,7 @@ app.post("/nagaprasath", async (req, res) => {
       Result: "Failure",
       Response: "Bad Request Please use post method",
     };
+    console.log("Result Array :", resultArray);
   }
   // echo json_encode($resultArray);
   res.send({ Status: "Successful" });
