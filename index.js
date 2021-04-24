@@ -26,8 +26,6 @@ mysqlConnection.connect((err) => {
 
 app.listen(3000, () => console.log("Express is running at port no : 3000"));
 
-
-
 app.post("/nagaprasath", async (req, res) => {
   if (req.method === "POST") {
     // $entityBody = file_get_contents('php://input');
@@ -215,10 +213,10 @@ app.post("/nagaprasath", async (req, res) => {
         // $row_log = mysqli_fetch_assoc($exe_get);
         //let log_id = exe_get["log_id"];
         //let tech_id = exe_get["tech_id"];
-        let  log_id = exe_get[0].log_id;
+        let log_id = exe_get[0].log_id;
         let tech_id = exe_get[0].tech_id;
-        console.log("LOG ID ",log_id);
-        console.log("TECH ID ",tech_id);
+        console.log("LOG ID ", log_id);
+        console.log("TECH ID ", tech_id);
         let insert_hosp_map =
           "INSERT INTO iMedrix_administration.hospital_technicians (operator_id, hospital_code, user_id) VALUES (" +
           tech_id +
@@ -227,7 +225,7 @@ app.post("/nagaprasath", async (req, res) => {
           "," +
           log_id +
           ")";
-          await query(insert_hosp_map)
+        await query(insert_hosp_map)
           .then((res) => {
             console.log("Response Insert HOSP MAP ", res);
             exe_uc = res;
@@ -241,7 +239,9 @@ app.post("/nagaprasath", async (req, res) => {
           json["cloud_enabled"] +
           "', '" +
           json["ecg_type"] +
-          "', '"+log_id+"', 'TC', '0', '" +
+          "', '" +
+          log_id +
+          "', 'TC', '0', '" +
           json["sample_freequency"] +
           "', '" +
           json["loglevel"] +
@@ -388,8 +388,8 @@ app.post("/nagaprasath", async (req, res) => {
         let doctor_id;
         let log_id;
         while (i < res_doc.length) {
-            doctor_id = res_doc[i].doctor_id;
-            log_id = res_doc[i].log_id;
+          doctor_id = res_doc[i].doctor_id;
+          log_id = res_doc[i].log_id;
           i++;
         }
         let check_map =
@@ -479,6 +479,8 @@ app.post("/nagaprasath", async (req, res) => {
         //   });
         // });
         // $res_doc = mysqli_query($conn, $check_doc);
+        let doctor_id;
+        let log_id;
         if (res_doc.length == 0) {
           let doctor_query =
             "INSERT INTO iMedrix_administration.doctor_details (firstname, lastname, emailid,speciality, phone_no, view, comment, forward, closure) VALUES ('" +
@@ -586,14 +588,13 @@ app.post("/nagaprasath", async (req, res) => {
 
             if (res_doc.length > 0) {
               let i = 0;
-              let doctor_id;
-              let log_id;
+
               while (i < res_doc.length) {
                 doctor_id = res_doc[i].doctor_id;
                 log_id = res_doc[i].log_id;
                 i++;
-                console.log("DOCTOR ID ",doctor_id);
-                console.log("LOG ID ",log_id);
+                console.log("DOCTOR ID ", doctor_id);
+                console.log("LOG ID ", log_id);
               }
             }
           }
@@ -630,7 +631,9 @@ app.post("/nagaprasath", async (req, res) => {
           let insert_uc =
             "INSERT INTO iMedrix_administration.users_config (user_type,notification_enabled, user_id, is_thirdparty_doctor, canRegister, canUpdatedetails, canAddVisit, showVitals, showSymp, showLab, showMed, showAddressEffects, showGlobaImp, ecgTool, otherReport, jssRehab, signature, exacta, sunUser) VALUES ('DR','" +
             json["notification_enabled"] +
-            "', "+log_id+", '" +
+            "', " +
+            log_id +
+            ", '" +
             json["is_thirdparty_doctor"] +
             "', '" +
             json["canRegister"] +
