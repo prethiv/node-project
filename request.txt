@@ -1,0 +1,11 @@
+Add Operator
+Request URL: http://192.168.1.154/imedrix_backend/IWS_AdminPortal/add_app_users.php
+{"type":"operator","hospital_code":"HMH","emailid":"shiva@imedrix.com","name":"Shiva","mobile":"7877878777","password":"Password","cloud_enabled":"0","ecg_type":"6","is_admin":"1","sample_freequency":"122","loglevel":"0","sync":"0","session_time":"250","thermal_printer":"0","user_usage_type":"1","spot_moniter":"0","name_enabled":"0","age_enabled":"0","mobile_enabled":"0","QR_code_enabled":"0","mode":"0","is_pdf_sync":"0","country_code":"","qualification":"","cityname":"","speciality":"","city_classification":"","role":"","region":"","username":"ShivaImed","protPDF":"0","showPDF":"1","showSympt":"1","canRegister":"0","canEditRegister":"1","canAddVisit":"0","vital":"0","hisSymp":"1","lab":"0","med":"1","addeff":"0","globalimpress":"0","ecgTool":"0","otherReport":"0","jssRehab":"0","signature":"0","exacta":"0","sunuser":"1"}
+
+
+
+Add Doctor
+
+Request URL: http://192.168.1.154/imedrix_backend/IWS_AdminPortal/add_app_users.php
+
+{"type":"doctor","hospital_code":"HMH","doctor_email":"krishna@imedrix.com","doctor_name":"Shivakrishna","lastname":"ch","password":"Password","speciality":"","doctor_phone":"87878878788","view":"0","comment":"0","forward":"0","closure":"0","notification_enabled":"0","is_thirdparty_doctor":"0","username":"Shviakrishna","canRegister":"1","canEditRegister":"0","canAddVisit":"0","vital":"0","hisSymp":"0","lab":"1","med":"1","addeff":"0","globalimpress":"0","ecgTool":"1","otherReport":"0","jssRehab":"0","signature":"0","exacta":"0","sunuser":"0"}
