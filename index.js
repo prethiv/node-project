@@ -388,14 +388,14 @@ app.post("/nagaprasath", async (req, res) => {
         let doctor_id;
         let log_id;
         while (i < res_doc.length) {
-          doctor_id = res_doc["doctor_id"];
-          log_id = res_doc["log_id"];
+            doctor_id = res_doc[i].doctor_id;
+            log_id = res_doc[i].log_id;
           i++;
         }
         let check_map =
           "SELECT * FROM iMedrix_administration.hospital_doctor where doctor_id = '" +
           doctor_id +
-          "' and hospital_name = " +
+          "' and hospital_code = " +
           h_id +
           "";
         let res_map;
@@ -589,9 +589,11 @@ app.post("/nagaprasath", async (req, res) => {
               let doctor_id;
               let log_id;
               while (i < res_doc.length) {
-                doctor_id = res_doc["doctor_id"];
-                log_id = res_doc["log_id"];
+                doctor_id = res_doc[i].doctor_id;
+                log_id = res_doc[i].log_id;
                 i++;
+                console.log("DOCTOR ID ",doctor_id);
+                console.log("LOG ID ",log_id);
               }
             }
           }
