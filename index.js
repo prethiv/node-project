@@ -26,6 +26,24 @@ mysqlConnection.connect((err) => {
 
 app.listen(3000, () => console.log("Express is running at port no : 3000"));
 
+//to get the technician detail:
+app.get('/tech/:code', (req,res)=>{
+    mysqlConnection.query("SELECT hd.hospital_code, hd.hospital_name, td.id as operator_id,td.mobile, ul.email_id, ul.user_name, uc.cloud_enabled, uc.reporting_required, uc.ecg_type, uc.session_time, uc.sync, uc.loglevel,uc.session_time, uc.sample_freequency, uc.thermal_printer, uc.terms_condition, td.markas_delete,uc.user_usage_type, uc.spot_moniter,name_enabled, age_enabled, mobile_enabled, uc.QR_code_enabled, uc.country_code, uc.last_reset_password_time,uc.mode,uc.is_pdf_sync, td.cityname, td.city_classification, td.qualification, td.speciality, td.role, td.region, td.full_name, uc.pdfProtect, uc.showPDFtp as showPDF, uc.skipSVscreen as showSympt,uc.is_admin,uc.canRegister,uc.canUpdatedetails, uc.canAddVisit, uc.showVitals, uc.showSymp, uc.showLab, uc.showMed, uc.showAddressEffects, uc.showGlobaImp, uc.ecgTool, uc.otherReport, uc.jssRehab, uc.signature, uc.exacta, uc.sunUser FROM iMedrix_administration.users_login ul, iMedrix_administration.technicians_details td, iMedrix_administration.hospital_technicians ht, iMedrix_administration.users_config as uc, iMedrix_administration.hospital_details as hd  where ul.email_id = td.emailid and ht.operator_id=td.id and uc.user_id = ul.id and ht.hospital_code = hd.id and hd.hospital_code = ?", [req.params.code],(err, rows, fields)=>{
+        if(!err)
+        mysqlConnection.query("SELECT dd.id as doctor_id, dd.firstname , dd.lastname, dd.emailid,dd.phone_no, uc.notification_enabled, uc.is_thirdparty_doctor, dd.speciality, uc.canRegister, uc.canUpdatedetails, uc.canAddVisit, uc.showVitals, uc.showSymp, uc.showLab, uc.showMed, uc.showAddressEffects, uc.showGlobaImp, uc.ecgTool, uc.otherReport, uc.jssRehab, uc.signature, uc.exacta, uc.sunUser  from iMedrix_administration.doctor_details dd, iMedrix_administration.hospital_doctor hd, iMedrix_administration.hospital_details as h,  iMedrix_administration.users_login ul,iMedrix_administration.users_config as uc where ul.email_id = dd.emailid and uc.user_id = ul.id and dd.id=hd.doctor_id and hd.hospital_code = h.id  and h.hospital_code= ? group by dd.id ", [req.params.code],(err, rowsd, fields)=>{
+            if(!err)
+            Operator = rows
+            doctor = rowsd
+            var a={response: 'success', Operator,
+            response: 'success', doctor}
+            res.send(a); 
+        })
+        else
+        console.log(err);
+    })
+       
+})
+//Insert data in operator and doctor:
 app.post("/nagaprasath", async (req, res) => {
   if (req.method === "POST") {
     // $entityBody = file_get_contents('php://input');
@@ -228,7 +246,7 @@ app.post("/nagaprasath", async (req, res) => {
         await query(insert_hosp_map)
           .then((res) => {
             console.log("Response Insert HOSP MAP ", res);
-            exe_uc = res;
+            exe_ul = res;
           })
           .catch((err) => {
             console.log("Error Insert HOSP MAP ", err);
